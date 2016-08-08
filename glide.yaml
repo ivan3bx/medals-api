@@ -1,0 +1,12 @@
+package: github.com/ivan3bx/medal-service
+import:
+- package: github.com/goadesign/goa
+  version: ^1.0.0
+  subpackages:
+  - design
+  - design/apidsl
+- package: github.com/yhat/scrape
+- package: golang.org/x/net
+  subpackages:
+  - html
+  - html/atom
