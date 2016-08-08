@@ -1,0 +1,103 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  Medals:
+    description: A list of country medals (default view)
+    example:
+      bronze: 6.438311e+18
+      countryId: Non excepturi tenetur.
+      countryName: Tenetur et saepe ratione debitis enim sapiente.
+      gold: 9.1719033e+18
+      silver: 6.5369424e+18
+    properties:
+      bronze:
+        description: Number of bronze medals
+        example: 6.438311e+18
+        format: int64
+        type: integer
+      countryId:
+        description: Short identifier for country
+        example: Non excepturi tenetur.
+        type: string
+      countryName:
+        description: Descriptive name for country
+        example: Tenetur et saepe ratione debitis enim sapiente.
+        type: string
+      gold:
+        description: Number of gold medals
+        example: 9.1719033e+18
+        format: int64
+        type: integer
+      silver:
+        description: Number of silver medals
+        example: 6.5369424e+18
+        format: int64
+        type: integer
+    required:
+    - countryId
+    - gold
+    - silver
+    - bronze
+    title: 'Mediatype identifier: application/vnd.medals+json'
+    type: object
+  MedalsCollection:
+    description: MedalsCollection is the media type for an array of Medals (default
+      view)
+    example:
+    - bronze: 6.438311e+18
+      countryId: Non excepturi tenetur.
+      countryName: Tenetur et saepe ratione debitis enim sapiente.
+      gold: 9.1719033e+18
+      silver: 6.5369424e+18
+    items:
+      $ref: '#/definitions/Medals'
+    title: 'Mediatype identifier: application/vnd.medals+json; type=collection'
+    type: array
+host: localhost:8080
+info:
+  description: API for olympic medals
+  title: Rio Medal Count
+  version: ""
+paths:
+  /medals:
+    get:
+      description: Get list of medals
+      operationId: medals#index
+      parameters:
+      - description: Sort by
+        enum:
+        - country
+        - total
+        - gold
+        - silver
+        - bronze
+        in: query
+        name: sort
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/MedalsCollection'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: index medals
+      tags:
+      - medals
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NotFound:
+    description: Not Found
+schemes:
+- http
+swagger: "2.0"
